@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hora Certa
 
-## Getting Started
+Plataforma web para alunos de Bacharelado em Ciência da Computação da UFSCar
+Sorocaba registrarem atividades complementares, acompanhar o progresso até as 90
+horas e gerar o relatório de entrega em PDF, com os comprovantes anexados.
 
-First, run the development server:
+Feito para o Hackathon SeCoT XVIII. Não tem banco de dados por escolha: montar
+um exigiria servidor e hospedagem durante o protótipo, então as atividades ficam
+no `localStorage` e os comprovantes no IndexedDB do próprio navegador.
+
+## Rodar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Outros comandos:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Telas
 
-## Learn More
+| Rota         | O que faz                                                          |
+| ------------ | ------------------------------------------------------------------ |
+| `/`          | Apresentação curta e entrada para o painel                         |
+| `/sobre`     | Problema, solução, regras aplicadas, acessibilidade e roteiro      |
+| `/painel`    | Régua de progresso, avisos de prazo, lista, relatório e backup     |
+| `/avaliador` | Painel da comissão, uma prévia (fora da navegação principal)       |
 
-To learn more about Next.js, take a look at the following resources:
+## Como o código está organizado
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `lib/rules.ts` — constantes do curso e cálculos puros (semestre de validação,
+  prazos, resumo de horas). Nenhuma regra dentro de componente.
+- `lib/store.ts` — `localStorage` com `useSyncExternalStore`, mais as ações de
+  criar, editar, excluir, importar e exportar.
+- `lib/files.ts` — comprovantes no IndexedDB via `idb-keyval`.
+- `lib/report.ts` — monta o requerimento e os comprovantes num PDF só, com
+  `pdf-lib`, no próprio navegador.
+- `lib/seed.ts` — atividades de exemplo e os comprovantes de `public/seed/`.
+- `components/ui/` — componentes gerados pelo shadcn/ui.
+- `components/layout/` — cabeçalho, rodapé e menu de acessibilidade.
+- `components/shared/` — peças usadas em mais de uma página (campo, status,
+  botão de comprovante).
+- `components/painel/` e `components/avaliador/` — as telas de cada rota; a
+  página em `app/` só define os metadados.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Acessibilidade
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O alvo é WCAG 2.2 AA: fonte Atkinson Hyperlegible Next, status sempre com ícone
+e texto, contraste verificado nos dois temas, alvos de toque de 44 px, foco
+visível, menu de tema e de tamanho do texto, e `axe-core` sem violações em todas
+as páginas.

@@ -1,26 +1,194 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-atkinson);
+  --font-heading: var(--font-atkinson);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-aprovada: var(--aprovada);
+  --color-analise: var(--analise);
+  --color-recusada: var(--recusada);
+  --color-pendente: var(--pendente);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.375rem;
+
+  --background: #f6f7f9;
+  --foreground: #17202a;
+  --card: #ffffff;
+  --card-foreground: #17202a;
+  --popover: #ffffff;
+  --popover-foreground: #17202a;
+  --primary: #0f5e6b;
+  --primary-foreground: #ffffff;
+  --secondary: #e7ecef;
+  --secondary-foreground: #17202a;
+  --muted: #eceff2;
+  --muted-foreground: #4b5563;
+  --accent: #e2edef;
+  --accent-foreground: #0b464f;
+  --destructive: #b42318;
+  --border: #d5dbe1;
+  --input: #7e8b98;
+  --ring: #0f5e6b;
+
+  --aprovada: #1e7b45;
+  --analise: #8a5a00;
+  --recusada: #b42318;
+  --pendente: #4b5563;
+}
+
+.dark {
+  --background: #10171c;
+  --foreground: #eaf0f3;
+  --card: #172026;
+  --card-foreground: #eaf0f3;
+  --popover: #172026;
+  --popover-foreground: #eaf0f3;
+  --primary: #5bc4d4;
+  --primary-foreground: #04222a;
+  --secondary: #223038;
+  --secondary-foreground: #eaf0f3;
+  --muted: #1e2a31;
+  --muted-foreground: #a9b7c0;
+  --accent: #223b42;
+  --accent-foreground: #d6f2f7;
+  --destructive: #f08c7b;
+  --border: #2c3941;
+  --input: #63737f;
+  --ring: #5bc4d4;
+
+  --aprovada: #57c98a;
+  --analise: #e0a63c;
+  --recusada: #f08c7b;
+  --pendente: #a9b7c0;
+}
+
+/* Tamanho do texto do menu de acessibilidade. */
+:root[data-texto="112"] {
+  font-size: 112.5%;
+}
+
+:root[data-texto="125"] {
+  font-size: 125%;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  /* Alvo de toque de 44x44 px (WCAG 2.5.5) sem editar os componentes gerados:
+     min-height/min-width vencem as classes de altura fixa do shadcn. */
+  [data-slot="button"],
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  [data-slot="select-item"],
+  [data-slot="dropdown-menu-item"],
+  [data-slot="dropdown-menu-radio-item"] {
+    min-height: 2.75rem;
+  }
+
+  [data-slot="button"][data-size^="icon"] {
+    min-width: 2.75rem;
+  }
+
+  /* Textos longos de aviso ficam melhores sem o balanceamento por linha. */
+  [data-slot="alert-description"] {
+    text-wrap: pretty;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Na impressão o papel é sempre claro, mesmo com o tema escuro ligado. */
+@media print {
+  :root,
+  :root.dark {
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #17202a;
+    --card: #ffffff;
+    --card-foreground: #17202a;
+    --popover: #ffffff;
+    --popover-foreground: #17202a;
+    --primary: #0f5e6b;
+    --primary-foreground: #ffffff;
+    --secondary: #f1f4f6;
+    --secondary-foreground: #17202a;
+    --muted: #f1f4f6;
+    --muted-foreground: #4b5563;
+    --accent: #e2edef;
+    --accent-foreground: #0b464f;
+    --destructive: #b42318;
+    --border: #b9c1c9;
+    --input: #7e8b98;
+    --aprovada: #1e7b45;
+    --analise: #8a5a00;
+    --recusada: #b42318;
+    --pendente: #4b5563;
+  }
+
+  [data-sonner-toaster] {
+    display: none !important;
+  }
+
+  tr,
+  li {
+    break-inside: avoid;
+  }
+}
+
+@page {
+  margin: 1.5cm;
 }
