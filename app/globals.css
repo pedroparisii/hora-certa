@@ -92,7 +92,11 @@
   --pendente: #a9b7c0;
 }
 
-/* Tamanho do texto do menu de acessibilidade. */
+/* Tamanho do texto do menu de acessibilidade. O padrão é 112,5%. */
+:root[data-texto="100"] {
+  font-size: 100%;
+}
+
 :root[data-texto="112"] {
   font-size: 112.5%;
 }

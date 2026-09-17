@@ -23,17 +23,19 @@ const TEMAS = [
   { valor: "system", rotulo: "Do sistema" },
 ]
 
+const TAMANHO_PADRAO = "112"
+
 const TAMANHOS = [
-  { valor: "100", rotulo: "Padrão" },
-  { valor: "112", rotulo: "Maior (112,5%)" },
-  { valor: "125", rotulo: "Muito maior (125%)" },
+  { valor: "100", rotulo: "Menor (100%)" },
+  { valor: "112", rotulo: "Padrão (112,5%)" },
+  { valor: "125", rotulo: "Maior (125%)" },
 ]
 
 function tamanhoSalvo(): string {
   try {
-    return localStorage.getItem(CHAVE_TEXTO) ?? "100"
+    return localStorage.getItem(CHAVE_TEXTO) ?? TAMANHO_PADRAO
   } catch {
-    return "100"
+    return TAMANHO_PADRAO
   }
 }
 

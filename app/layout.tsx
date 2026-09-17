@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      data-texto="100"
+      data-texto="112"
       suppressHydrationWarning
       className={`${atkinson.variable} h-full antialiased`}
     >

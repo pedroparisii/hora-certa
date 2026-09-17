@@ -251,8 +251,8 @@ export default function SobrePage() {
 
       <Secao id="testar" titulo="Como testar em dois minutos">
         <p>
-          O painel já vem com atividades de exemplo, inclusive uma com prazo
-          vencido e um semestre acima do teto de horas. Sugestão de roteiro:
+          O painel já vem com três atividades de exemplo: uma aprovada, uma
+          pendente e uma recusada. Sugestão de roteiro:
         </p>
         <ol className="ml-5 flex list-decimal flex-col gap-2">
           <li>
@@ -341,6 +341,16 @@ export default function SobrePage() {
             </dl>
           </CardContent>
         </Card>
+        <p>
+          O código do protótipo está aberto no {" "}
+          <a
+            href="https://github.com/pedroparisii/hora-certa"
+            className="text-primary underline underline-offset-4 "
+          >
+            Github
+          </a>
+          .
+        </p>
       </Secao>
     </div>
   )
