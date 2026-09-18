@@ -22,7 +22,6 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty"
 import { ItemGroup } from "@/components/ui/item"
-import { plural } from "@/lib/rules"
 import type { Activity } from "@/lib/types"
 
 export function ActivityList({
@@ -75,14 +74,12 @@ export function ActivityList({
       <CardContent className="flex flex-col gap-4">
         <ActivityFilters filtros={filtros} aoMudar={setFiltros} />
 
-        <p aria-live="polite" className="text-sm text-muted-foreground">
-          {filtradas.length === atividades.length
-            ? plural(
-                atividades.length,
-                "atividade registrada",
-                "atividades registradas",
-              )
-            : `${filtradas.length} de ${atividades.length} atividades`}
+        <p
+          aria-live="polite"
+          className="text-sm text-muted-foreground empty:hidden"
+        >
+          {filtradas.length < atividades.length &&
+            `${filtradas.length} de ${atividades.length} atividades`}
         </p>
 
         {filtradas.length === 0 ? (

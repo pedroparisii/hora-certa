@@ -1,12 +1,12 @@
-import { CircleCheckIcon, TargetIcon } from "lucide-react"
+import { ChevronDownIcon, CircleCheckIcon, TargetIcon } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import {
   HORAS_POR_CREDITO,
   META_HORAS,
@@ -44,6 +44,7 @@ function oQueFalta(resumo: Resumo): string {
 
 export function ProgressOverview({ resumo }: { resumo: Resumo }) {
   const valorEmTexto = `${resumo.horasAprovadas} de ${META_HORAS} horas aprovadas, ${resumo.creditos} de ${CREDITOS_DA_META} créditos`
+  const Icone = resumo.metaCumprida ? CircleCheckIcon : TargetIcon
 
   return (
     <Card>
@@ -51,10 +52,6 @@ export function ProgressOverview({ resumo }: { resumo: Resumo }) {
         <CardTitle>
           <h2>Progresso total</h2>
         </CardTitle>
-        <CardDescription>
-          A meta é {META_HORAS} horas aprovadas, o mesmo que{" "}
-          {CREDITOS_DA_META} créditos de {HORAS_POR_CREDITO} horas.
-        </CardDescription>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-4">
@@ -102,51 +99,63 @@ export function ProgressOverview({ resumo }: { resumo: Resumo }) {
           </ol>
         </div>
 
-        <p className="text-base">
-          <strong className="font-semibold">{valorEmTexto}.</strong>
-          {resumo.horasEmAnalise > 0 ? (
-            <>
-              {" "}
-              Mais {resumo.horasEmAnalise} horas estão em análise, na faixa
-              hachurada.
-            </>
-          ) : null}
-        </p>
-
-        <dl className="grid gap-3 sm:grid-cols-3">
-          {[
-            { termo: "Horas aprovadas", valor: `${resumo.horasAprovadas} h` },
-            { termo: "Em análise", valor: `${resumo.horasEmAnalise} h` },
-            { termo: "Faltam para a meta", valor: `${resumo.horasRestantes} h` },
-          ].map((item) => (
-            <div
-              key={item.termo}
-              className="rounded-md bg-muted px-3 py-2 text-muted-foreground"
-            >
-              <dt>{item.termo}</dt>
-              <dd className="text-lg font-semibold text-foreground">
-                {item.valor}
-              </dd>
-            </div>
-          ))}
-        </dl>
-
-        <p className="flex items-start gap-2 text-sm">
-          {resumo.metaCumprida ? (
-            <CircleCheckIcon
+        <div className="flex flex-col gap-1">
+          <p className="font-semibold">
+            {valorEmTexto}.
+            {resumo.horasEmAnalise > 0 &&
+              ` +${resumo.horasEmAnalise} h em análise.`}
+          </p>
+          <p className="flex items-start gap-2 text-sm text-muted-foreground">
+            <Icone
               aria-hidden="true"
-              className="mt-0.5 size-4 shrink-0 text-aprovada"
+              className={
+                resumo.metaCumprida
+                  ? "mt-0.5 size-4 shrink-0 text-aprovada"
+                  : "mt-0.5 size-4 shrink-0"
+              }
             />
-          ) : (
-            <TargetIcon
-              aria-hidden="true"
-              className="mt-0.5 size-4 shrink-0 text-muted-foreground"
-            />
-          )}
-          {resumo.metaCumprida
-            ? `Meta cumprida: ${META_HORAS} horas aprovadas em ${resumo.categoriasAtendidas} categorias.`
-            : `Para cumprir a meta: ${oQueFalta(resumo)}.`}
-        </p>
+            {resumo.metaCumprida
+              ? `Meta cumprida em ${resumo.categoriasAtendidas} categorias.`
+              : `Falta: ${oQueFalta(resumo)}.`}
+          </p>
+        </div>
+
+        <Collapsible>
+          <CollapsibleTrigger asChild>
+            <Button variant="ghost" className="group -ml-2 self-start">
+              Ver detalhes
+              <ChevronDownIcon
+                aria-hidden="true"
+                className="transition-transform group-data-[state=open]:rotate-180"
+              />
+            </Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col gap-3 pt-2">
+            <dl className="grid gap-3 sm:grid-cols-3">
+              {[
+                { termo: "Aprovadas", valor: `${resumo.horasAprovadas} h` },
+                { termo: "Em análise", valor: `${resumo.horasEmAnalise} h` },
+                { termo: "Faltam", valor: `${resumo.horasRestantes} h` },
+              ].map((item) => (
+                <div
+                  key={item.termo}
+                  className="rounded-md bg-muted px-3 py-2 text-muted-foreground"
+                >
+                  <dt>{item.termo}</dt>
+                  <dd className="text-lg font-semibold text-foreground">
+                    {item.valor}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="text-sm text-muted-foreground">
+              A meta é {META_HORAS} horas aprovadas ({CREDITOS_DA_META} créditos
+              de {HORAS_POR_CREDITO} horas) em pelo menos {MIN_CATEGORIAS}{" "}
+              categorias. A faixa hachurada mostra as horas em análise, que
+              ainda não contam.
+            </p>
+          </CollapsibleContent>
+        </Collapsible>
       </CardContent>
     </Card>
   )

@@ -79,8 +79,9 @@ export function ReportCard({ atividades }: { atividades: Activity[] }) {
           <h2>Gerar relatório</h2>
         </CardTitle>
         <CardDescription>
-          Um PDF com o requerimento e os comprovantes das atividades pendentes
-          do semestre, na mesma ordem da tabela.
+          O requerimento e os comprovantes das atividades pendentes do
+          semestre num PDF só, para imprimir ou mandar por e-mail à
+          coordenação.
         </CardDescription>
       </CardHeader>
 
@@ -89,7 +90,6 @@ export function ReportCard({ atividades }: { atividades: Activity[] }) {
           <Campo
             id={`${id}-semestre`}
             rotulo="Semestre de validação"
-            ajuda="As atividades são validadas no semestre seguinte ao da realização."
           >
             <Select
               value={semestre}
@@ -99,7 +99,6 @@ export function ReportCard({ atividades }: { atividades: Activity[] }) {
               <SelectTrigger
                 id={`${id}-semestre`}
                 className="w-full"
-                aria-describedby={`${id}-semestre-ajuda`}
               >
                 <SelectValue placeholder="Nenhum semestre disponível" />
               </SelectTrigger>
@@ -142,10 +141,11 @@ export function ReportCard({ atividades }: { atividades: Activity[] }) {
           <FileDownIcon aria-hidden="true" />
           {gerando ? "Gerando o PDF" : "Baixar PDF"}
         </Button>
-        <p className="text-sm text-muted-foreground" aria-live="polite">
-          {gerando
-            ? "Juntando o requerimento e os comprovantes."
-            : "Imprima o PDF ou anexe no e-mail da coordenação."}
+        <p
+          className="text-sm text-muted-foreground empty:hidden"
+          aria-live="polite"
+        >
+          {gerando && "Juntando o requerimento e os comprovantes."}
         </p>
       </CardFooter>
     </Card>

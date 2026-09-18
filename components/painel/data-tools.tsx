@@ -59,19 +59,22 @@ export function DataTools() {
           <h2>Meus dados</h2>
         </CardTitle>
         <CardDescription>
-          O protótipo não usa banco de dados: para não depender de hospedagem,
-          tudo fica guardado neste navegador. Exporte um backup antes de trocar
-          de computador ou limpar o histórico.
+          Tudo fica neste navegador: o protótipo não usa banco de dados para
+          não depender de servidor. Exporte um backup antes de trocar de
+          computador.
         </CardDescription>
       </CardHeader>
 
       <CardContent className="flex flex-wrap gap-2">
-        <Button variant="outline" onClick={() =>
+        <Button
+          variant="outline"
+          onClick={() =>
             baixarArquivo(
               new Blob([exportarJson()], { type: "application/json" }),
               "atividades-complementares.json",
             )
-          }>
+          }
+        >
           <FileDownIcon aria-hidden="true" />
           Exportar JSON
         </Button>

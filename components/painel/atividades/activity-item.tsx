@@ -30,7 +30,6 @@ import {
   formatarData,
   prazoValidacao,
   rotuloCategoria,
-  semestreValidacao,
   situacaoPrazo,
 } from "@/lib/rules"
 import { excluir } from "@/lib/store"
@@ -57,8 +56,7 @@ export function ActivityItem({
         </ItemTitle>
         <ItemDescription>
           {rotuloCategoria(atividade.categoria)} ·{" "}
-          {formatarData(atividade.data)} · {atividade.horas} h · Validação em{" "}
-          {semestreValidacao(atividade.data)}, até{" "}
+          {formatarData(atividade.data)} · {atividade.horas} h · Prazo{" "}
           {formatarData(prazoValidacao(atividade.data))}
         </ItemDescription>
 
@@ -74,13 +72,13 @@ export function ActivityItem({
         )}
       </ItemContent>
 
-      <ItemActions className="w-full flex-wrap justify-start sm:w-auto sm:flex-col sm:items-stretch">
+      <ItemActions className="w-full flex-wrap gap-1 sm:w-auto">
         <ComprovanteButton atividade={atividade}>
           Abrir comprovante
         </ComprovanteButton>
 
         <ActivityForm atividade={atividade}>
-          <Button variant="outline" aria-label={`Editar ${atividade.titulo}`}>
+          <Button variant="ghost" aria-label={`Editar ${atividade.titulo}`}>
             <PencilIcon aria-hidden="true" />
             Editar
           </Button>

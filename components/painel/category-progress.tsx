@@ -3,7 +3,6 @@ import { CircleCheckIcon, CircleDashedIcon } from "lucide-react"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -20,10 +19,6 @@ export function CategoryProgress({ resumo }: { resumo: Resumo }) {
         <CardTitle>
           <h2>Horas por categoria</h2>
         </CardTitle>
-        <CardDescription>
-          A meta exige horas aprovadas em pelo menos {MIN_CATEGORIAS}{" "}
-          categorias diferentes.
-        </CardDescription>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-4">
