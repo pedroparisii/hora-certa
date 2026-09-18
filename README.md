@@ -28,8 +28,8 @@ pnpm build
 | Rota         | O que faz                                                          |
 | ------------ | ------------------------------------------------------------------ |
 | `/`          | Apresentação curta e entrada para o painel                         |
-| `/sobre`     | Problema, solução, regras aplicadas, acessibilidade e roteiro      |
-| `/painel`    | Régua de progresso, avisos de prazo, lista, relatório e backup     |
+| `/sobre`     | Problema, solução, regras, acessibilidade, roteiro e backup        |
+| `/painel`    | Régua de progresso, avisos de prazo, lista e relatório             |
 | `/avaliador` | Painel da comissão, uma prévia (fora da navegação principal)       |
 
 ## Como o código está organizado

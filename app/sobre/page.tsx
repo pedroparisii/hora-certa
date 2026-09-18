@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { DataTools } from "@/components/sobre/data-tools"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -283,7 +284,7 @@ export default function SobrePage() {
         <p className="text-sm text-muted-foreground">
           As atividades e os comprovantes são de exemplo e ficam só no seu
           navegador. Para voltar ao estado inicial, use “Restaurar dados de
-          exemplo” no fim do painel.
+          exemplo” em “Meus dados”, logo abaixo.
         </p>
         <div className="flex flex-wrap gap-2">
           <Button asChild>
@@ -294,6 +295,8 @@ export default function SobrePage() {
           </Button>
         </div>
       </Secao>
+
+      <DataTools />
 
       <Secao id="decisoes" titulo="Decisões e próximos passos">
         <p>

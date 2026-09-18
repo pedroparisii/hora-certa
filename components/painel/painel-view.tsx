@@ -4,8 +4,6 @@ import { PlusIcon } from "lucide-react"
 
 import { ActivityForm } from "@/components/painel/atividades/activity-form"
 import { ActivityList } from "@/components/painel/atividades/activity-list"
-import { CategoryProgress } from "@/components/painel/category-progress"
-import { DataTools } from "@/components/painel/data-tools"
 import { DeadlineAlerts } from "@/components/painel/deadline-alerts"
 import { ProgressOverview } from "@/components/painel/progress-overview"
 import { ReportCard } from "@/components/painel/report-card"
@@ -60,10 +58,6 @@ function Conteudo({ atividades }: { atividades: Activity[] }) {
       <ProgressOverview resumo={resumo} />
       <ActivityList atividades={atividades} hoje={hoje} />
       <ReportCard atividades={atividades} />
-      <div className="grid items-start gap-6 md:grid-cols-2">
-        <CategoryProgress resumo={resumo} />
-        <DataTools />
-      </div>
     </>
   )
 }
